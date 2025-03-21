@@ -8,7 +8,7 @@
 
         public string City { get; set; }
 
-        public string Coach { get; set; }
+        public string Trener { get; set; }
 
         public int Wins { get; set; } = 0;
 

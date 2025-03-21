@@ -12,9 +12,9 @@ namespace Gpt_Turnir.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Coach = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    City = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Trener = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Wins = table.Column<int>(type: "int", nullable: false),
                     Losts = table.Column<int>(type: "int", nullable: false)
                 },
