@@ -1,14 +1,15 @@
 ﻿namespace Gpt_Turnir.Data
 {
+    using Gpt_Turnir.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    public class ApplicationDbContext : IdentityDbContext
+    public class TurnirDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public TurnirDbContext(DbContextOptions<TurnirDbContext> options)
             : base(options)
         {
         }
