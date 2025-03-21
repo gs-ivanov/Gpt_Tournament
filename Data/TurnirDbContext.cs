@@ -13,5 +13,7 @@
             : base(options)
         {
         }
+
+        public DbSet<Team> Teams { get; init; }
     }
 }

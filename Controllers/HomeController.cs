@@ -1,6 +1,7 @@
 ﻿namespace Gpt_Turnir.Controllers
 {
     using Gpt_Turnir.Models;
+    using Gpt_Turnir.Models.Home;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System;
@@ -20,6 +21,7 @@
 
         public IActionResult Index()
         {
+
             return View();
         }
 
