@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir.Models.Home
+﻿namespace Tournament.Models.Home
 {
     public class IndexModel
     {

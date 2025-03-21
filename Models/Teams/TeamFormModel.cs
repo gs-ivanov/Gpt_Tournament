@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir.Models.Teams
+﻿namespace Tournament.Models.Teams
 {
     using System.ComponentModel.DataAnnotations;
 

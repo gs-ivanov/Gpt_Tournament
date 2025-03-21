@@ -1,7 +1,7 @@
-﻿namespace Gpt_Turnir.Controllers
+﻿namespace Tournament.Controllers
 {
-    using Gpt_Turnir.Models;
-    using Gpt_Turnir.Models.Home;
+    using Tournament.Models;
+    using Tournament.Models.Home;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using System;

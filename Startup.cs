@@ -1,8 +1,8 @@
-namespace Gpt_Turnir
+namespace Tournament
 {
-    using Gpt_Turnir.Data;
-    using Gpt_Turnir.Data.Models;
-    using Gpt_Turnir.Infrastructure;
+    using Tournament.Data;
+    using Tournament.Data.Models;
+    using Tournament.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;

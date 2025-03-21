@@ -1,4 +1,4 @@
-namespace Gpt_Turnir
+namespace Tournament
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;

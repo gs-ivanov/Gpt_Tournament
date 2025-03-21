@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir
+﻿namespace Tournament
 {
     public class WebConstants
     {

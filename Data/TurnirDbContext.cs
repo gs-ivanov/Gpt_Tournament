@@ -1,6 +1,6 @@
-﻿namespace Gpt_Turnir.Data
+﻿namespace Tournament.Data
 {
-    using Gpt_Turnir.Data.Models;
+    using Tournament.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using System;

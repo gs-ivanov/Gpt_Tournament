@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Gpt_Turnir.Data.Migrations
+namespace Tournament.Data.Migrations
 {
     public partial class TeamsTableImplementation : Migration
     {

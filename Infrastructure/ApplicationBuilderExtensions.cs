@@ -1,7 +1,7 @@
-﻿namespace Gpt_Turnir.Infrastructure
+﻿namespace Tournament.Infrastructure
 {
-    using Gpt_Turnir.Data;
-    using Gpt_Turnir.Data.Models;
+    using Tournament.Data;
+    using Tournament.Data.Models;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using static WebConstants;
+    using static Tournament.WebConstants;
+
     public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase(
@@ -49,7 +50,7 @@
 
                     await roleManager.CreateAsync(role);
 
-                    const string adminEmail = "admin@crs.com";
+                    const string adminEmail = "admin@tur.com";
                     const string adminPassword = "admin12";
 
                     var user = new User

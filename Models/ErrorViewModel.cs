@@ -1,4 +1,4 @@
-namespace Gpt_Turnir.Models
+namespace Tournament.Models
 {
     using System;
 

@@ -1,6 +1,6 @@
-﻿namespace Gpt_Turnir.Areas.Identity.Pages.Account
+﻿namespace Tournament.Areas.Identity.Pages.Account
 {
-    using Gpt_Turnir.Data.Models;
+    using Tournament.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;

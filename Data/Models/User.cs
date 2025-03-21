@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir.Data.Models
+﻿namespace Tournament.Data.Models
 {
     using Microsoft.AspNetCore.Identity;
     using System.ComponentModel.DataAnnotations;

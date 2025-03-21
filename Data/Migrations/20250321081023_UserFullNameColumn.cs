@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Gpt_Turnir.Data.Migrations
+﻿namespace Tournament.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class UserFullNameColumn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

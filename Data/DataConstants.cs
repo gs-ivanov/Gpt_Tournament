@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir.Data
+﻿namespace Tournament.Data
 {
     public class DataConstants
     {

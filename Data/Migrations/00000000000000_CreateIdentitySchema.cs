@@ -1,4 +1,4 @@
-﻿namespace Gpt_Turnir.Data.Migrations
+﻿namespace Tournament.Data.Migrations
 {
     using Microsoft.EntityFrameworkCore.Metadata;
     using Microsoft.EntityFrameworkCore.Migrations;
