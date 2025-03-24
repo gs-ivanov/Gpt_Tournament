@@ -1,14 +1,14 @@
 ﻿namespace Tournament.Controllers
 {
-    using Tournament.Data;
-    using Tournament.Models.Home;
-    using Tournament.Models.Teams;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
+    using Tournament.Data;
+    using Tournament.Data.Models;
+    using Tournament.Models.Teams;
+    using Tournament.Infrastructure.Extensions;
+
+    using static WebConstants;
 
     public class TeamsController : Controller
     {
@@ -19,31 +19,30 @@
             this.data = data;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] TeamsQueryModel query)
         {
-            var team = new List<IndexModel>()
-            {
-                new IndexModel{
-                Id=1,
-                Name="Team A",
-                City="City A",
-                Trener="Penev",
-                Wins=1,
-                Losts=0 },
-                new IndexModel{
-                Id=2,
-                Name="Team B",
-                City="City B",
-                Trener="Iliev",
-                Wins=6,
-                Losts=2 },
-            }
-            .ToList();
+            var teamsQuery = this.data.Teams.AsQueryable();
 
-            return View(team);
+            var teams = teamsQuery
+                .OrderByDescending(t => t.Wins)
+                .ThenBy(t => t.Losts)
+                .Select(t => new TeamsQueryModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    City = t.City,
+                    Trener = t.Trener,
+                    Wins = t.Wins,
+                    Losts = t.Losts
+                })
+                .ToList();
+
+            return View(teams);
+
         }
+
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Add()
         {
             return View();
         }
@@ -57,17 +56,118 @@
                 return View(team);
             }
 
-            //this.teams.Create(
-            //    team.Name,
-            //    team.City,
-            //    team.Description,
-            //    team.TeamLogo,
-            //    team.Year,
-            //    team.GroupId,
-            //    trenerId);
+            var teamData = new Team()
+            {
+                Name = team.Name,
+                City = team.City,
+                Trener = team.Trener,
+                Wins = team.Wins,
+                Losts = team.Losts
+            };
 
+            this.data.Teams.Add(teamData);
+
+            this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = "You team was added and is awaiting for approval!";
+           
             return RedirectToAction(nameof(All));
         }
+        [Authorize]
+        public IActionResult Edit(int Id)
+        {
+            var userid = this.User.Id();
+
+            if (!User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            var teamsQuery = this.data.Teams.AsQueryable();
+
+            var team = teamsQuery
+                .Where(t => t.Id == Id)
+                .Select(t=>new TeamFormModel
+                {
+                    Name = t.Name,
+                    City = t.City,
+                    Trener = t.Trener,
+                    Wins = t.Wins,
+                    Losts = t.Losts
+                })
+                .FirstOrDefault();
+
+            return View(team);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(TeamFormModel team)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(team);
+            }
+
+            var teamData = new Team()
+            {
+                Name = team.Name,
+                City = team.City,
+                Trener = team.Trener,
+                Wins = team.Wins,
+                Losts = team.Losts
+            };
+
+            this.data.Teams.Add(teamData);
+
+            this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = "You team was edited and is awaiting for approval!";
+           
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+
+
+            var teamsQuery = this.data.Teams.AsQueryable();
+
+            var team = teamsQuery
+                .Where(t => t.Id == id)
+                .Select(t=>new TeamFormModel
+                {
+                    Id=t.Id,
+                    Name=t.Name,
+                    City = t.City,
+                    Trener = t.Trener,
+                    Wins = t.Wins,
+                    Losts = t.Losts
+                })
+                .FirstOrDefault();
+
+            TempData[GlobalMessageKey] = "You team was edited and is awaiting for approval!";
+
+            return View(team);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var team = this.data.Teams.FirstOrDefault(t => t.Id == id);
+            if (team == null)
+            {
+                return NotFound();
+            }
+            this.data.Teams.Remove(team);
+            this.data.SaveChanges();
+
+            TempData[GlobalMessageKey] = "Записът за отбор: " +team.Name +"  беше изтрит успешно!";
+            return RedirectToAction(nameof(All));
+        }
+
     }
 
 }

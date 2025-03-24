@@ -6,6 +6,8 @@
 
     public class TeamFormModel
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; init; }
@@ -14,27 +16,16 @@
         [StringLength(CityMaxLength, MinimumLength = CityMinLength)]
         public string City { get; init; }
 
-        public int Trener { get; init; }
+        [Required]
+        public string Trener { get; init; }
 
+        [Required]
         [Display(Name = "Winning points:")]
-        public int Wins { get; init; }
+        public int Wins { get; init; } = 0;
 
+        [Required]
         [Display(Name = "Lost points:")]
-        public int Losts { get; init; }
+        public int Losts { get; init; } = 0;
 
-        //[Required]
-        //[StringLength(
-        //    int.MaxValue,
-        //    MinimumLength = DescriptionMinLength,
-        //    ErrorMessage = "The field Description must be a string with a minimum length of {2}.")]
-        //public string Description { get; init; }
-
-        //[Display(Name = "Team Logo")]
-        //[Required]
-        //public string TeamLogo { get; init; }
-
-        //[Range(YearMinValue, YearMaxValue)]
-        //[Display(Name = "Team established at Year:")]
-        //public int Year { get; init; }
     }
 }

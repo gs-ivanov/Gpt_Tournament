@@ -1,0 +1,16 @@
+﻿@using static Tournament.WebConstants
+@model TeamFormModel
+
+@{
+    ViewBag.Title = "Edit Team";
+
+}
+
+@TempData[GlobalMessageKey];
+
+
+<partial name="_TeamFormPartial_Edit" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

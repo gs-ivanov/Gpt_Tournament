@@ -29,5 +29,7 @@
 
         public int Losts { get; set; } = 0;
 
+
+
     }
 }

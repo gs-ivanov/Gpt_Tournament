@@ -1,0 +1,12 @@
+﻿@model TeamFormModel
+@using static Tournament.WebConstants
+
+<h2>Потвърждение за изтриване</h2>
+<p>Сигурни ли сте, че искате да изтриете отбора: @Model.Name?</p>
+@{TempData[GlobalMessageKey] = "Изтриването на отбора "+ @Model.Name +" беше отменено.";}
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit">Да, изтрий</button>
+    <a asp-action="All">Отказ</a>
+</form>
+@*urn confirm('Are you sure you want to cancel your application?\n\nThis process cannot be undone, and any information you have entered will be lost.');" />*@

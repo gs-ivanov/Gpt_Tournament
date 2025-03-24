@@ -1,40 +1,44 @@
-﻿@model List<IndexModel>
+﻿@model List<TeamsQueryModel>
 
-<h2>Списък на отборите</h2>
+<h2 class="text-black-50 text-center">Списък на отборите</h2>
+
+@using static Tournament.WebConstants
+
+<h5 class="text-black-10 text-center text-success"> @TempData[GlobalMessageKey]</h5>
+
 
 <table class="table">
-        <thead>
-            <tr>
-                <th>Име</th>
-                <th>Град</th>
-                <th>Треньор</th>
-                <th>Победи</th>
-                <th>Загуби</th>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <th>Действия</th>
-                    }
-            </tr>
-        </thead>
-        <tbody>
-                @foreach (var team in Model)
-                {
-                    <tr>
-                        <td>@team.Name</td>
-                        <td>@team.City</td>
-                        <td>@team.Trener</td>
-                        <td>@team.Wins</td>
-                        <td>@team.Losts</td>
-                            @if (User.IsInRole("Administrator"))
-                            {
-                                <td>
-                                <a asp-action="Edit" asp-route-id="@team.Id">Редактиране</a> |
-                                <a asp-action="Delete" asp-route-id="@team.Id">Изтриване</a>
-                                </td>
-                            }
-                    </tr>
-                }
-        </tbody>
+    <thead>
+        <tr>
+            <th>Име</th>
+            <th>Град</th>
+            <th>Треньор</th>
+            <th>Победи</th>
+            <th>Загуби</th>
+            @if (User.IsInRole("Administrator"))
+            {
+<th>Действия</th>}
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+<tr>
+    <td>@team.Name</td>
+    <td>@team.City</td>
+    <td>@team.Trener</td>
+    <td>@team.Wins</td>
+    <td>@team.Losts</td>
+    @if (User.IsInRole("Administrator"))
+    {
+<td>
+    <a asp-action="Edit" asp-route-id="@team.Id">Редактиране</a> |
+    <a asp-action="Delete" asp-route-id="@team.Id">Изтриване</a>
+</td>}
+
+    <td><a asp-action="Details" asp-route-id="@team.Id">Детайли</a> </td>
+</tr>}
+    </tbody>
 </table>
 
-    <a asp-action="Create" class="btn btn-primary">Добави отбор</a>
+<a asp-action="Add" class="btn btn-primary">Добави отбор</a>
