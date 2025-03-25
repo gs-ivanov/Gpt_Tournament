@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class MatchViewModel
+    public class MatchFormModel
     {
         public int Id { get; set; }
 

@@ -41,14 +41,14 @@
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator,Editor")]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator,Editor")]
         public IActionResult Add(TeamFormModel team)
         {
             if (!ModelState.IsValid)

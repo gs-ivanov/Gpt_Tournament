@@ -21,7 +21,7 @@
 
             MigrateDatabase(services);
 
-            SeedAdministrator(services);
+            SeedRolesAndAdministrator(services);
 
             return app;
         }
@@ -29,11 +29,10 @@
         private static void MigrateDatabase(IServiceProvider services)
         {
             var data = services.GetRequiredService<TurnirDbContext>();
-
             data.Database.Migrate();
         }
 
-        private static void SeedAdministrator(IServiceProvider services)
+        private static void SeedRolesAndAdministrator(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<User>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
@@ -41,28 +40,52 @@
             Task
                 .Run(async () =>
                 {
-                    if (await roleManager.RoleExistsAsync(AdministratorRoleName))
+                    // Създаване на роли, ако не съществуват
+                    string[] roleNames = { AdministratorRoleName, "Editor" };
+
+                    foreach (var roleName in roleNames)
                     {
-                        return;
+                        if (!await roleManager.RoleExistsAsync(roleName))
+                        {
+                            await roleManager.CreateAsync(new IdentityRole(roleName));
+                        }
                     }
 
-                    var role = new IdentityRole { Name = AdministratorRoleName };
-
-                    await roleManager.CreateAsync(role);
-
+                    // Създаване на Администратор
                     const string adminEmail = "admin@tur.com";
                     const string adminPassword = "admin12";
 
-                    var user = new User
+                    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+                    if (adminUser == null)
                     {
-                        Email = adminEmail,
-                        UserName = adminEmail,
-                        FullName = "Admin"
-                    };
+                        var user = new User
+                        {
+                            Email = adminEmail,
+                            UserName = adminEmail,
+                            FullName = "Admin"
+                        };
 
-                    await userManager.CreateAsync(user, adminPassword);
+                        await userManager.CreateAsync(user, adminPassword);
+                        await userManager.AddToRoleAsync(user, AdministratorRoleName);
+                    }
 
-                    await userManager.AddToRoleAsync(user, role.Name);
+                    // (Опционално) Създаване на Editor акаунт за тестове
+                    const string editorEmail = "editor@tur.com";
+                    const string editorPassword = "editor12";
+
+                    var editorUser = await userManager.FindByEmailAsync(editorEmail);
+                    if (editorUser == null)
+                    {
+                        var user = new User
+                        {
+                            Email = editorEmail,
+                            UserName = editorEmail,
+                            FullName = "Editor"
+                        };
+
+                        await userManager.CreateAsync(user, editorPassword);
+                        await userManager.AddToRoleAsync(user, "Editor");
+                    }
                 })
                 .GetAwaiter()
                 .GetResult();

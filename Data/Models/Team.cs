@@ -29,6 +29,12 @@
 
         public int Losts { get; set; } = 0;
 
+        public int GoalsScored { get; set; }  // Вкарани голове
+
+        public int GoalsConceded { get; set; } // Получени голове
+
+        public int GoalDifference => GoalsScored - GoalsConceded; // Голова разлика
+
 
 
     }

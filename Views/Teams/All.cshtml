@@ -23,21 +23,23 @@
     <tbody>
         @foreach (var team in Model)
         {
-<tr>
-    <td>@team.Name</td>
-    <td>@team.City</td>
-    <td>@team.Trener</td>
-    <td>@team.Wins</td>
-    <td>@team.Losts</td>
-    @if (User.IsInRole("Administrator"))
-    {
-<td>
-    <a asp-action="Edit" asp-route-id="@team.Id">Редактиране</a> |
-    <a asp-action="Delete" asp-route-id="@team.Id">Изтриване</a>
-</td>}
+        <tr>
+            <td>@team.Name</td>
+            <td>@team.City</td>
+            <td>@team.Trener</td>
+            <td>@team.Wins</td>
+            <td>@team.Losts</td>
+        @*@if (User.IsInRole("Administrator"))*@
+        @if (User.IsInRole("Editor"))
+        {
+        <td>
+            <a asp-action="Edit" asp-route-id="@team.Id">Редактиране</a> |
+            <a asp-action="Delete" asp-route-id="@team.Id">Изтриване</a>
+        </td>
+}
 
-    <td><a asp-action="Details" asp-route-id="@team.Id">Детайли</a> </td>
-</tr>}
+        <td><a asp-action="Details" asp-route-id="@team.Id">Детайли</a> </td>
+        </tr>}
     </tbody>
 </table>
 

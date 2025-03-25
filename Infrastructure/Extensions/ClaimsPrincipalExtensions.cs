@@ -12,5 +12,7 @@
         public static bool IsAdmin(this ClaimsPrincipal user)
             => user.IsInRole(AdministratorRoleName);
 
+        public static bool IsEditor(this ClaimsPrincipal user)
+            => user.IsInRole("Editor"); // Проверява дали потребителят е "Editor"
     }
 }
