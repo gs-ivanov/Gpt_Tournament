@@ -14,5 +14,7 @@
 
         public int Losts { get; init; }
 
+        public bool IsEditable { get; set; }
+
     }
 }

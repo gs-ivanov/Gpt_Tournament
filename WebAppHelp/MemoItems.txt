@@ -1,0 +1,7 @@
+﻿Във Views/Matches/Index.cshtml можеш да скриеш бутоните от обикновените потребители:
+
+@if(User.IsAdmin() || User.IsEditor())
+{
+    < a asp - action = "Edit" asp - route - id = "@match.Id" class= "btn btn-warning btn-sm" > Редактирай </ a >
+}
+

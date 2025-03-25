@@ -8,12 +8,7 @@
     {
         public IActionResult Index()
         {
-            return RedirectToAction("All", "teams");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return RedirectToAction("AllTeams", "teams");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

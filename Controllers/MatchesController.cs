@@ -22,11 +22,32 @@
 
         public IActionResult GenerateSchedule()
         {
+            if(this.data.Matches.Any())
+            {
+                TempData[GlobalMessageKey] = "Графикът вече е успешно генериран! За подновяване на графика избери 'Нулиране на графика' от списъка на отборите, след като се логнеш като администратор ";
+
+                return RedirectToAction(nameof(Index));
+
+            }
+
             var teams = data.Teams.ToList();
+
+            //if (teams.Count > 4)
+            //{
+            //    TempData[GlobalMessageKey] = "Графикът е успешно генериран! Използвани са само първите 4 отбора.";
+            //}
+            //else
+            //{
+            //    TempData["GlobalMessageKey"] = "Графикът е успешно генериран!";
+            //}
+
+            // teams = data.Teams.Take(4).ToList();
+
+
             if (teams.Count != 4)
             {
-                TempData[GlobalMessageKey] = "Трябва да има точно 4 отбора, за да се генерира график.";
-                return RedirectToAction("All", "Teams");
+                TempData[GlobalMessageKey] = "Трябва да има точно 4 отбора, за да се генерира график.Ако са повече - вземат се първите 4 отбора. Select Reset Schedele to generate new schedele";
+                return RedirectToAction("AllTeams", "Teams");
             }
 
             List<Match> matches = new List<Match>();
@@ -46,7 +67,8 @@
             data.Matches.AddRange(matches);
             data.SaveChanges();
 
-            TempData["Success"] = "Графикът е успешно генериран!";
+            TempData["GlobalMessageKey"] = "Графикът е успешно генериран!";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -69,7 +91,7 @@
         }
 
         [Authorize(Roles = "Editor")]
-        public IActionResult Edit(int id)
+        public IActionResult EditMatches(int id)
         {
             var match = data.Matches
                 .Where(m => m.Id == id)
@@ -94,7 +116,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Editor")]
-        public IActionResult Edit(int id, MatchFormModel match)
+        public IActionResult EditMatches(int id, MatchFormModel match)
         {
             if (!ModelState.IsValid)
             {
@@ -133,39 +155,39 @@
 
             return RedirectToAction(nameof(Index));
 
-           
-        } 
-        private void UpdateTeamStats(Team team, int scored, int conceded, bool removeOld = false)
-            {
-                if (removeOld)
-                {
-                    // Връщаме старите резултати (ако мачът се редактира)
-                    if (scored > conceded)
-                    {
-                        team.Wins--;
-                    }
-                    else if (scored < conceded)
-                    {
-                        team.Losts--;
-                    }
-                }
-                else
-                {
-                    // Добавяме новите резултати
-                    if (scored > conceded)
-                    {
-                        team.Wins++;
-                    }
-                    else if (scored < conceded)
-                    {
-                        team.Losts++;
-                    }
-                }
 
-                // Обновяваме головете
-                team.GoalsScored += removeOld ? -scored : scored;
-                team.GoalsConceded += removeOld ? -conceded : conceded;
+        }
+        private void UpdateTeamStats(Team team, int scored, int conceded, bool removeOld = false)
+        {
+            if (removeOld)
+            {
+                // Връщаме старите резултати (ако мачът се редактира)
+                if (scored > conceded)
+                {
+                    team.Wins--;
+                }
+                else if (scored < conceded)
+                {
+                    team.Losts--;
+                }
             }
+            else
+            {
+                // Добавяме новите резултати
+                if (scored > conceded)
+                {
+                    team.Wins++;
+                }
+                else if (scored < conceded)
+                {
+                    team.Losts++;
+                }
+            }
+
+            // Обновяваме головете
+            team.GoalsScored += removeOld ? -scored : scored;
+            team.GoalsConceded += removeOld ? -conceded : conceded;
+        }
 
     }
 

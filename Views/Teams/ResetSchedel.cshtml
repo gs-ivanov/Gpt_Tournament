@@ -1,0 +1,11 @@
+﻿@using static Tournament.WebConstants
+
+<h2 class="text-black-50 text-center">Потвърждение за нулиране на пълния график на турнира.</h2>
+<p class="text-center">Няма връщане назад!!!</p>
+
+<form asp-action="ResetSchedel" method="post">
+    <div class="form-group">
+        <button type="submit"  asp-action="Reset" class="btn btn-danger">Да, нулирай!</button>
+        <a asp-action="AllTeams" class="btn btn-info">Отказ</a>
+    </div>
+</form>
