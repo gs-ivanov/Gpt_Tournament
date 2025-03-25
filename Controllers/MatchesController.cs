@@ -139,7 +139,7 @@
             {
                 return NotFound();
             }
-
+            //    
             // Премахваме старите резултати от статистиките
             UpdateTeamStats(homeTeam, matchData.HomeTeamGoals, matchData.AwayTeamGoals, removeOld: true);
             UpdateTeamStats(awayTeam, matchData.AwayTeamGoals, matchData.HomeTeamGoals, removeOld: true);
